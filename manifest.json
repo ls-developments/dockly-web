@@ -1,0 +1,35 @@
+{
+  "name": "Dockly",
+  "short_name": "Dockly",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#0B3C5D",
+  "theme_color": "#0B3C5D",
+  "description": "Tap. Ride. Arrive. On-demand boat rides in Fort Lauderdale.",
+  "orientation": "portrait-primary",
+  "prefer_related_applications": false,
+  "icons": [
+    {
+      "src": "icons/Icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/Icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/Icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

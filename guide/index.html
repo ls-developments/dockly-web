@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dockly · Pilot guide</title>
+<style>
+  :root { --ink:#1B2A33; --blue:#0B3C5D; --teal:#0E7C86; --sand:#F4EFE6; --gray:#6B7A83; }
+  * { box-sizing:border-box }
+  body { margin:0; font:16px/1.55 -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color:var(--ink); background:var(--sand) }
+  header { background:linear-gradient(160deg,#1B2A33,var(--blue) 55%,var(--teal)); color:#fff; padding:48px 20px 40px }
+  .wrap { max-width:760px; margin:0 auto }
+  h1 { font-size:40px; margin:0 0 6px; letter-spacing:-.5px }
+  header p { margin:0; opacity:.85; font-size:18px }
+  main { padding:28px 20px 60px }
+  h2 { font-size:20px; margin:34px 0 10px; color:var(--blue) }
+  .cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:14px }
+  .card { background:#fff; border-radius:16px; padding:18px; box-shadow:0 1px 2px rgba(0,0,0,.06) }
+  .card b { display:block; font-size:17px; margin-bottom:4px }
+  .card a.btn { display:inline-block; margin-top:10px; background:var(--blue); color:#fff; text-decoration:none; padding:10px 16px; border-radius:12px; font-weight:700 }
+  .card small { color:var(--gray) }
+  ol li, ul li { margin:6px 0 }
+  code { background:#fff; border:1px solid #e3ded4; padding:1px 6px; border-radius:6px; font-size:14px }
+  .note { background:#fff; border-left:4px solid var(--teal); padding:12px 16px; border-radius:10px; margin:14px 0 }
+  footer { color:var(--gray); font-size:13px; text-align:center; padding:0 20px 40px }
+</style>
+</head>
+<body>
+<header><div class="wrap">
+  <div style="font-size:44px">⚓</div>
+  <h1>Dockly</h1>
+  <p>Tap. Ride. Arrive. — On-demand boat rides in Fort Lauderdale. Pilot build for review.</p>
+</div></header>
+<main><div class="wrap">
+
+  <p>This is a working prototype of the Dockly platform: a passenger app, a captain app and an operations panel, all running on a test database with Fort Lauderdale docks, canals and prices. Nothing here is public yet and no real payments or SMS are involved.</p>
+
+  <h2>Open the apps</h2>
+  <div class="cards">
+    <div class="card"><b>🧭 Passenger app</b><small>Request a boat from dock to dock.</small><br><a class="btn" href="https://ls-developments.github.io/dockly-web/">Open passenger app</a></div>
+    <div class="card"><b>🚤 Captain app</b><small>Receive requests, quote, accept and run the trip.</small><br><a class="btn" href="https://ls-developments.github.io/dockly-web/captain/">Open captain app</a></div>
+    <div class="card"><b>🗺️ Operations panel</b><small>Live map, trips, captains, fares, docks, audit.</small><br><a class="btn" href="https://ls-developments.github.io/dockly-web/admin/">Open panel</a></div>
+  </div>
+  <div class="note">On your phone, open the link in Safari or Chrome and use <b>Add to Home Screen</b>. It behaves like an installed app.</div>
+
+  <h2>Test accounts</h2>
+  <p>Sign-in is by phone number. During the pilot no SMS is sent: these numbers accept the code <code>123456</code>.</p>
+  <ul>
+    <li><b>Your own number</b> (469) 309-3253 — works in all three apps. Use it as the passenger.</li>
+    <li><b>Demo captain</b> (954) 555-0102 — use it on a second phone or a browser window to play the captain.</li>
+    <li><b>Demo passenger</b> (954) 555-0101 — spare passenger account.</li>
+  </ul>
+
+  <h2>A 10-minute test drive</h2>
+  <ol>
+    <li><b>Captain side first.</b> Open the captain app, sign in as the demo captain, fill the registration form (any boat name, registration like <code>FL 1234 AB</code>, pick the waters you work). Submit.</li>
+    <li><b>Approve the captain.</b> Open the operations panel, section <i>Captains</i>, filter <i>Pending</i>, approve. Then in the captain app tap <b>Go online</b>.</li>
+    <li><b>Request a ride.</b> In the passenger app choose a departure dock (try <i>Las Olas Marina</i>) and a destination (<i>Riverwalk · Esplanade Park</i> or <i>Shooters Waterfront</i>). You get an instant price. Confirm.</li>
+    <li><b>Accept it.</b> The captain app shows the request with the route. Accept, then follow the steps: <i>On my way → Arrived → Passenger on board → Done</i>. The passenger sees the boat move on the map (on a phone, with location on).</li>
+    <li><b>Try a counteroffer.</b> On a new request, as captain tap <i>Propose another price</i>. The passenger can accept or decline.</li>
+    <li><b>Look at the panel.</b> <i>Live</i> shows the trip, <i>Trips</i> the history and receipt, <i>Audit</i> who did what.</li>
+  </ol>
+
+  <h2>What we would love to hear from you</h2>
+  <ul>
+    <li>Are the docks the right ones? Which marinas and restaurants would actually let a charter captain pick up and drop off?</li>
+    <li>Do the prices feel right for Fort Lauderdale? Today: $25 base + about $8 per mile, flat fares between the main docks.</li>
+    <li>What would a licensed captain need to see before signing up? (We plan to ask for the USCG license, insurance and drug-program enrollment.)</li>
+    <li>Anything confusing in the flow, in English, or on your phone screen.</li>
+  </ul>
+
+  <h2>Known limits of this build</h2>
+  <ul>
+    <li>Payment by card is not connected yet. Choose <b>Cash</b> when requesting.</li>
+    <li>Canal routes come from OpenStreetMap; a few side canals may be missing, in which case the price falls back to a distance estimate.</li>
+    <li>Web only for now. Native iOS and Android builds come after the pilot.</li>
+  </ul>
+
+</div></main>
+<footer>Dockly pilot · November 2026 · Built by LS Developments</footer>
+</body>
+</html>

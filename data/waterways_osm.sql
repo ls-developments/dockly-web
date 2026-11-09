@@ -253,3 +253,15 @@ insert into waterways (osm_id, name, kind, navigable, geom) values
 (1243557342, null, 'stream', true, st_geomfromtext('LINESTRING(-80.1065251 26.1500321, -80.1065454 26.1499682, -80.1065800 26.1499372, -80.1066613 26.1498861, -80.1066938 26.1498040, -80.1067324 26.1497401, -80.1067731 26.1497310, -80.1068869 26.1497456, -80.1069540 26.1497602, -80.1070434 26.1497438, -80.1071207 26.1497128, -80.1071491 26.1496690, -80.1071451 26.1495796, -80.1071573 26.1494628, -80.1071491 26.1493588, -80.1071503 26.1493186, -80.1071552 26.1491526, -80.1070983 26.1491015, -80.1070109 26.1490595, -80.1069865 26.1490267, -80.1069479 26.1489683, -80.1069154 26.1489300, -80.1068788 26.1488752, -80.1068930 26.1487840, -80.1069072 26.1487384, -80.1068666 26.1487128, -80.1068198 26.1486946, -80.1067243 26.1486818, -80.1066470 26.1486763, -80.1065576 26.1486818, -80.1064966 26.1487092, -80.1064722 26.1487621, -80.1064702 26.1488223, -80.1064539 26.1488698, -80.1064214 26.1489245, -80.1063787 26.1489063, -80.1062852 26.1489263, -80.1062425 26.1489610, -80.1061328 26.1489701, -80.1060799 26.1489792, -80.1060027 26.1489792, -80.1058970 26.1489555, -80.1058441 26.1489811, -80.1057913 26.1490358)', 4326))
 on conflict (osm_id) do update set name = excluded.name, kind = excluded.kind, navigable = excluded.navigable, geom = excluded.geom;
 select rebuild_water_graph();
+
+-- Tramo del Intracoastal entre Las Olas y Port Everglades: OSM lo tiene como polígono de agua, no como línea.
+-- Trazado aproximado por el centro del canal, enganchado a los nodos más cercanos del grafo. Se agregó el 8 de noviembre de 2026.
+insert into waterways (name, kind, source, notes, geom)
+select 'Atlantic Intracoastal Waterway (Las Olas – Port Everglades)', 'manual', 'manual', 'Trazado aproximado por el centro del canal.',
+  st_makeline(array[a.geom,
+    st_setsrid(st_makepoint(-80.1092,26.1150),4326), st_setsrid(st_makepoint(-80.1098,26.1105),4326), st_setsrid(st_makepoint(-80.1125,26.1060),4326),
+    st_setsrid(st_makepoint(-80.1160,26.1015),4326), st_setsrid(st_makepoint(-80.1172,26.0960),4326), st_setsrid(st_makepoint(-80.1160,26.0920),4326), b.geom])
+from (select geom from water_nodes order by geom <-> st_setsrid(st_makepoint(-80.1095, 26.1187),4326) limit 1) a,
+     (select geom from water_nodes order by geom <-> st_setsrid(st_makepoint(-80.1150, 26.0900),4326) limit 1) b
+where not exists (select 1 from waterways where name like 'Atlantic Intracoastal Waterway (Las Olas%');
+select rebuild_water_graph();
